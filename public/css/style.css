@@ -1,0 +1,104 @@
+body {
+    font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.sidenav {
+    height: 100%;
+    width: 50px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav a {
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.container .image1 {
+    width: 1920px;
+    margin: 0;
+    padding: 0;
+}
+
+
+.container {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.container .content {
+    position: absolute;
+    bottom: 0;
+    color: black;
+}
+
+.container .navImage {
+    width: 30px;
+    height: 25px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.container .spanNav{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #190E0E;
+
+}
+
+.paragraphTitle{
+    text-align: center;
+    top: 20px;
+    vertical-align: middle;
+}
+
+.about{
+    font-size: 25px;
+    padding-left: 50px;
+}
+.aboutText{
+    font-size: 15px;
+    width: 450px;
+    font-weight: 100;
+    padding-left: 50px;
+}
+
+
+/* Create two equal columns that floats next to each other */
+.column {
+    float: left;
+    padding: 10px;
+    height: 50%; /* Should be removed. Only for demonstration */
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+    vertical-align: middle;
+    width: 100%;
+  }
+
+
+  .contactImage{
+    padding-left: 50px;
+    width: 15px;
+    height: 15px;
+    padding-right: 40px;
+  }
