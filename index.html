@@ -2,48 +2,408 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./public/css/style.css">
-    <script type="text/javascript" src="./public/js/index.js"></script>
-    <title>Document</title>
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.9.2/sass.min.js"
+    integrity="sha512-mA5b7w9mZvGLWgjIqp9KhWNzkkZ/H3gC4Ua6GOn9m/xl1UF4ghH8GsriKvAYxLsxoKvn6NdebW7kZ6iGB3CGSg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<body>
-    <div class="container">
-        <img class="image1" id="about" src="./public/img/1.jpg" alt="Notebook">
-        <div class="spanNav" style="font-size:25px;cursor:pointer" onclick="openNav()">&#9776;</div>
-        <div class="content">
-            <div id="mySidenav" class="sidenav">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                <a href="#about"><img class="navImage" src="./public/img/about.png"></a>
-                <!-- <a href="#contact"><img class="navImage" src="../img/contact.png"></a> -->
-                <a href="./public/html/project.html"><img class="navImage" src="./public/img/project.png"></a>
-            </div>
-        </div>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"></script>
+
+  <script src="css-doodle.js"></script>
+  <script src="css-doodle.min.js"></script>
+  <link rel="stylesheet" href="./app.css">
+</head>
+<style>
+  body {
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    background-image: radial-gradient(circle farthest-corner at 100% 0%, #ffa500, 50%, lightblue 90%);
+    background-attachment: fixed;
+    font-family: monospace;
+  }
+
+  #sun {
+    position: absolute;
+    z-index: -10;
+    top: 2%;
+    right: 0%;
+    font-size: 5em;
+    animation: sunshine 180s infinite alternate;
+  }
+
+  @keyframes sunshine {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .tree {
+    position: absolute;
+    bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tree__1,
+  .tree__2,
+  .tree__3,
+  .tree__5 {
+    width: 0;
+    height: 0;
+    border-radius: 10%;
+  }
+
+  .tree__5 {
+    /*added this top branch on last-sw */
+    border: 20px solid transparent;
+    border-bottom: 25px solid #a7ac5c;
+  }
+
+  .tree__1 {
+    border: 45px solid transparent;
+    border-bottom: 50px solid #878822;
+    margin-top: -60px;
+  }
+
+  .tree__2 {
+    border: 60px solid transparent;
+    border-bottom: 65px solid #4a560c;
+    margin-top: -80px;
+  }
+
+  .tree__3 {
+    border: 70px solid transparent;
+    border-bottom: 80px solid #303b2b;
+    margin-top: -100px;
+  }
+
+  .tree__4 {
+    /*trunk base*/
+    width: 10px;
+    height: 50px;
+    background: #211610;
+  }
+
+  #grass {
+    background-image: linear-gradient(to left, #878822, #42aa46);
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    height: 40px;
+  }
+
+  #bug {
+    transform-origin: 0% 100%;
+    transform: rotate(100deg);
+    animation: walk 200s infinite ease-in-out;
+  }
+
+  .p-name-class {
+    color: white;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  @keyframes walk {
+    to {
+      transform: translateX(102vw) rotate(90deg);
+    }
+  }
+
+  .container {
+    height: 200px;
+    position: relative;
+  }
+
+  .vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    left: 42%;
+    transform: translateY(-50%);
+  }
+
+  .static-color {
+    background-color: #1db954;
+    color: whitesmoke;
+  }
+
+  .tile-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .tile {
+    width: 200px;
+    /* Adjust according to your image size */
+    height: 100px;
+    /* Adjust according to your image size */
+    background-size: cover;
+    background-position: center;
+  }
+
+  .tile1 {
+    background-image: url("https://i.imgur.com/OKdN4am.png");
+  }
+
+  .tile2 {
+    background-image: url("https://i.imgur.com/kmb87ev.png");
+  }
+
+  .tile3 {
+    background-image: url("https://i.imgur.com/kIzzNgU.jpg");
+  }
+
+  .tile4 {
+    background-image: url("https://i.imgur.com/7XAjwss.png");
+  }
+
+  .tile5 {
+    background-image: url("https://i.imgur.com/YGsOJgs.png");
+  }
+
+  .tile6 {
+    background-image: url("https://i.imgur.com/SGP25Ka.png");
+  }
+
+  .tile7 {
+    background-image: url("https://i.imgur.com/49HhNJl.png");
+    width: 150px;
+    height: 80px;
+  }
+
+  .tile8 {
+    background-image: url("https://i.imgur.com/kXE5aBD.png");
+  }
+
+  .tile9 {
+    background-image: url("https://i.imgur.com/Lw86vxX.png");
+  }
+
+  .tile10 {
+    background-image: url("https://i.imgur.com/rRyHUwu.png");
+  }
+
+  .tile11 {
+    background-image: url("https://i.imgur.com/kmb87ev.png");
+  }
+
+  .tile12 {
+    background-image: url("https://i.imgur.com/kmb87ev.png");
+  }
+
+  /*# sourceMappingURL=app.css.map */
+</style>
+
+<body style="background-color: white;">
+  <!-- Button trigger modal -->
+
+  <p class="p-name-class">STEPHEN BELLOCILLO</p>
+  <p class="p-name-class">NetSuite Developer / Software Developer</p>
+  <p class="p-name-class">email: iamstephenbellocillo@gmail.com</p>
+
+  <div class="container">
+    <div class="vertical-center">
+      <button type="button" class="btn static-color" data-bs-toggle="modal" data-bs-target="#modal1">
+        About
+      </button>
+      <button type="button" class="btn static-color" data-bs-toggle="modal" data-bs-target="#modal2">
+        Portfolio
+      </button>
     </div>
-    <div class="row">
-        <div class="column">
-            <p class="about" id="contact">ABOUT</p>
-            <p class="aboutText"> A Computer Science graduate and I'm a Software Developer
-                for over 3 years of experience and NetSuite Developer with a 1 year experience.
-                I do Software Development and Photography for a living.</p>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">About</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="column" >
-            <p class="about">Contact</p>
-            <p class="contactText"><img class="contactImage" src="./public/img/gmail.png">Iamstephenbellocillo@gmail.com</p>
-            <p class="contactText"><img class="contactImage" src="./public/img/skype.png">Yingbellocillo@hotmail.com </p>
-            <p class="contactText"><img class="contactImage" src="./public/img/phone.png">09279485330 </p>
-            <p class="contactText"><img class="contactImage" src="./public/img/linkedin.png">https://www.linkedin.com/in/stephen-bellocillo-3638b5b0/</p>
+        <div class="modal-body">
+          <p>
+            Hello, <br />
+            and welcome to my portfolio! I am STEPHEN BELLOCILLO, a passionate and driven computer science graduate
+            <br />
+            eager to make an impact in the world of technology. Throughout my academic journey, I have honed my skills
+            <br />
+            in various areas of computer science, including software development, machine learning, and cybersecurity.
+            <br />
+            My insatiable curiosity and dedication to learning have led me to explore emerging technologies and tackle
+            <br />
+            complex problems head-on. With a solid foundation in computer science principles and hands-on experience
+            <br />
+            gained through internships and personal projects, I am ready to embark on the next chapter of my career,
+            <br />
+            contributing innovative solutions to real-world challenges and continuously evolving in this ever-changing
+            <br />
+            field. Join me as I showcase my projects, skills, and aspirations in the realm of computer science and
+            <br />
+            technology. Let's build the future together! <br />
+          </p>
         </div>
-        <div class="column" style="text-align: center;">
-            <p class="about">Programming Languages</p>
-            <p class="aboutText">C#, JavaScript</p>
-            <p class="about">Other </p>
-            <p class="aboutText">SuiteScript 2.0, NodeJs, ExpressJs, HTML, CSS, FreeMarker, Ajax, GIT, GitHub, BitBucket
-            </p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
+      </div>
     </div>
+  </div>
+
+  <div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Portfolio</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="tile-container">
+            <div class="tile tile1"></div>
+            <div class="tile tile2"></div>
+            <div class="tile tile3"></div>
+            <div class="tile tile4"></div>
+            <div class="tile tile5"></div>
+            <div class="tile tile6"></div>
+            <div class="tile tile7"></div>
+            <div class="tile tile8"></div>
+            <div class="tile tile9"></div>
+            <div class="tile tile10"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="sun">🌞</div>
+  <div id="forest"></div>
+  <div id="grass">
+    <div id="bug">🐞</div>
+  </div>
+  <css-doodle id="dood"></css-doodle>
+
 </body>
+<script>
+  function getCss(gridSize, is3d) {
+    var doodl = `:doodle {
+    @grid:${gridSize}/ 100%;
+    width:100vw;
+    height:100vh;
+    }
+    :container {
+      transform-style:${is3d ? "preserve-3d" : "flat"};
+    }
+    :after {
+      content:@p(🦋);
+    } 
+    @random(.15) {
+      filter:hue-rotate(@r(-180deg, 180deg));
+    }
+    
+    animation: fly @r(10s, 20s) infinite linear;
+    will-change:transform;
+    position:absolute;
+    left:@r(100%);/*butterfly starting pos*/
+    bottom:@r(75px, 250px);/*tree height is up to 250px*/
+   
+    @keyframes fly {
+      0% {
+        transform:
+        translateX(@r(-20px, 20px))
+        translateY(@r(-20px, 20px));
+      }
+      33% {
+        transform:
+        translateX(calc(@p(-1,1)*@r(20)*@p(1vmax)))
+        translateY(calc(-1*@r(40)*1vmax))
+        rotateY(@r(15turn, 25turn))
+        rotateZ(@r(-.05turn, .05turn));
+      }
+      66% {
+        transform:
+        translateX(calc(@p(-1,1)*@r(20)*@p(1vmax)))
+        translateY(calc(-1*@r(30,60)*1vmax))
+        rotateY(@r(35turn, 45turn))
+        rotateZ(@r(-.05turn, .05turn));
+      }
+      100% {
+        transform:
+        translateX(calc(@p(-1,1,1)*@r(40)*1vmax))
+        translateY(calc(-100*1vmax))
+        rotateY(@r(55turn, 70turn))
+        rotateZ(@r(-.05turn, .05turn))
+        ;
+      }
+    }
+  `;
+    return doodl;
+  }
+
+
+  /*INIT*/
+  var body = document.querySelector("body");
+  var dood = document.getElementById("dood");
+  var forest = document.querySelector("div#forest");
+  body.onload = init;
+  window.addEventListener('resize', init, false);
+
+  /*HELPERS*/
+  function init() {
+
+    dood.update(getCss(15, false));
+    let wid = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    let density = Math.floor(wid / 10);
+    forest.innerHTML = "";
+    let min = -20;/*x-axis coords*/
+    let max = 120;
+    for (let i = 0; i < density; i++) {
+      let pos = (Math.random() * (max - min + 1)) + min;
+      let hei = getRandomIntInclusive(5, 250);
+      forest.appendChild(generateTree(hei, pos));
+    }
+  }
+
+  function generateTree(height, position) {
+    let template = `
+        <div class="tree__5"></div>
+        <div class="tree__1"></div>
+        <div class="tree__2"></div>
+        <div class="tree__3"></div>
+        <div class="tree__4" style="height:${height}px"></div>
+      `;
+    let el = document.createElement("div");
+    el.setAttribute("class", "tree");
+    el.style.left = `${position}%`;
+    el.innerHTML = template;
+    el.style.zIndex = Math.random() > 0.5 ? -10 : 10;
+    return el;
+  }
+  function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+
+</script>
 
 </html>
